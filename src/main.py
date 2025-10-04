@@ -7,13 +7,12 @@ import db_connector
 app = Flask(__name__)
 
 
-def get_short_code(original_url: str) -> str:
+def get_short_code() -> str:
     short_code = "".join(
         random.choices(
             string.ascii_lowercase + string.ascii_uppercase + string.digits, k=6
         )
     )
-    db_connector.add_url(original_url, short_code)
     return short_code
 
 
@@ -21,7 +20,9 @@ def get_short_code(original_url: str) -> str:
 def index():
     if request.method == "POST":
         original_url = request.form["original-url"]
-        shortened_url = f"{request.host_url}{get_short_code(original_url)}"
+        short_code = get_short_code()
+        db_connector.add_url(original_url, short_code)
+        shortened_url = f"{request.host_url}{short_code}"
         return render_template("index.html", shortened_url=shortened_url)
     else:
         return render_template("index.html")
