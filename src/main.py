@@ -32,6 +32,7 @@ def index():
 def shortened_url(short_code: str = None):
     original_url = db_connector.get_url(short_code)
     if original_url:
+        db_connector.increment_clicks(short_code)
         return redirect(original_url)
 
     return "Page not found", 404
