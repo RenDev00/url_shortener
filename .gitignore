@@ -1,0 +1,13 @@
+# Compiled Python bytecode
+*.py[cod]
+__pycache__
+
+# VSCode
+.vscode
+venv
+
+# env file
+.env
+
+# pytest
+.pytest_cache
