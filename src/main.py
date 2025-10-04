@@ -1,10 +1,21 @@
+import os
 import random
 import string
+from dotenv import load_dotenv
+import requests
 from flask import Flask, render_template, redirect, request
+from apscheduler.schedulers.background import BackgroundScheduler
 
 import db_connector
 
+load_dotenv()
+
 app = Flask(__name__)
+server_name = os.environ.get("HOST_URL")
+
+
+def keep_awake():
+    requests.request(method="GET", url=server_name)
 
 
 def get_short_code() -> str:
@@ -39,4 +50,10 @@ def shortened_url(short_code: str = None):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    try:
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(func=keep_awake, trigger="interval", minutes=1)
+        scheduler.start()
+        app.run(debug=True, use_reloader=False)
+    finally:
+        scheduler.shutdown()
