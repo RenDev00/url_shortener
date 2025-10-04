@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head %}
+<title>RenDev00 URL Shortener</title>
+{% endblock %}
+
+{% block body %}
+<div class="bg-text">
+    <h1>URL Shortener</h1>
+    <input type="url" name="original-url" class="url-input" placeholder="Paste your link here">
+    <button type="submit" class="shorten-button">Get your shortened link</button>
+</div>
+{% endblock %}
