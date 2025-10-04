@@ -5,8 +5,16 @@
 
 {% block body %}
 <div class="bg-text">
+    {% if shortened_url %}
+    <h1>Your shortened link is ready!</h1>
+    <input type="url" name="shortened-url" class="url-input" value="{{ shortened_url }}" readonly>
+    <button onclick="copyToClipboard()" class="ui-button">Copy</button>
+    {% else %}
     <h1>URL Shortener</h1>
-    <input type="url" name="original-url" class="url-input" placeholder="Paste your link here">
-    <button type="submit" class="shorten-button">Get your shortened link</button>
+    <form method="POST">
+        <input type="url" name="original-url" class="url-input" placeholder="Paste your link here">
+        <button type="submit" class="ui-button">Get your shortened link</button>
+    </form>
+    {% endif%}
 </div>
 {% endblock %}
