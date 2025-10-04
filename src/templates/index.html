@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block head %}
+{% if shortened_url %}
+<script src="/static/js/copyScript.js"></script>
+{% endif %}
+<title>RenDev00 URL Shortener</title>
+{% endblock %}
+
+{% block body %}
+<div class="bg-text">
+    {% if shortened_url %}
+    <h1>Your shortened link is ready!</h1>
+    <input type="url" id="shortened-url" class="url-input" value="{{ shortened_url }}" readonly>
+    <div class="ui-button-container">
+        <button onclick="copyToClipboard(this)" class="ui-button">Copy</button>
+        <span class="ui-button-tooltip">Copied!</span>
+    </div>
+    {% else %}
+    <h1>URL Shortener</h1>
+    <form method="POST">
+        <input type="url" name="original-url" class="url-input" placeholder="Paste your link here">
+        <button type="submit" class="ui-button">Get your shortened link</button>
+    </form>
+    {% endif%}
+</div>
+{% endblock %}
