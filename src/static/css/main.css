@@ -108,3 +108,17 @@ html {
     padding: 20px;
     text-align: center;
 }
+
+@media (max-width: 768px) {
+    .bg-text {
+        width: 90%;
+    }
+
+    .url-input {
+        width: 80%;
+    }
+
+    .ui-button {
+        margin-top: 3%;
+    }
+}
