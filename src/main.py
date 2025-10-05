@@ -18,6 +18,11 @@ def keep_awake():
     requests.request(method="GET", url=server_name)
 
 
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=keep_awake, trigger="interval", minutes=1)
+scheduler.start()
+
+
 def get_short_code() -> str:
     short_code = "".join(
         random.choices(
@@ -51,9 +56,6 @@ def shortened_url(short_code: str = None):
 
 if __name__ == "__main__":
     try:
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(func=keep_awake, trigger="interval", minutes=1)
-        scheduler.start()
         app.run(debug=True, use_reloader=False)
     finally:
         scheduler.shutdown()
