@@ -36,6 +36,7 @@ def delete_url(short_code: str):
 
 
 def delete_expired_urls():
+    """Deletes all database entries that are past their expiration date."""
     supabase.table("urls").delete().lt("expires_at", datetime.datetime.now()).execute()
 
 
