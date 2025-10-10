@@ -1,3 +1,4 @@
+import datetime
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -28,6 +29,10 @@ def delete_url(short_code: str):
         short_code: The 6 character short code of the desired database entry.
     """
     supabase.table("urls").delete().eq("short_code", short_code).execute()
+
+
+def delete_expired_urls():
+    supabase.table("urls").delete().lt("expires_at", datetime.datetime.now()).execute()
 
 
 def get_data(short_code: str) -> dict | None:
