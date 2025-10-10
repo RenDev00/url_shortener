@@ -38,7 +38,9 @@ def index():
     if request.method == "POST":
         original_url = request.form["original-url"]
         short_code = get_short_code()
-        db_connector.add_url(original_url, short_code)
+        # TODO update frontend to support entering a validity period
+        validity_days = 30
+        db_connector.add_url(original_url, short_code, validity_days)
         shortened_url = f"{request.host_url}{short_code}"
         return render_template("index.html", shortened_url=shortened_url)
     else:
