@@ -26,6 +26,15 @@ html {
     border-color: #007BFF;
 }
 
+.validity-period {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    height: 45px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
 .ui-button-container {
     position: relative;
     display: inline-block;

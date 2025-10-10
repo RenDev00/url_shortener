@@ -19,6 +19,13 @@
     <h1>URL Shortener</h1>
     <form method="POST">
         <input type="url" name="original-url" class="url-input" placeholder="Paste your link here">
+        <select name="validity-period" class="validity-period">
+            <option value="1 D">1 Day</option>
+            <option value="10 D">10 Days</option>
+            <option value="1 M">1 Month</option>
+            <option value="6 M">6 Months</option>
+            <option value="12 M">1 Year</option>
+        </select>
         <button type="submit" class="ui-button">Get your shortened link</button>
     </form>
     {% endif%}

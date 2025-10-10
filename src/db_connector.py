@@ -1,3 +1,4 @@
+import datetime
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -8,7 +9,7 @@ key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 
-def add_url(original_url: str, short_code: str):
+def add_url(original_url: str, short_code: str, validity_days: int):
     """Adds a url to the database.
     Args:
         original_url: The original url string to be shortened.
@@ -18,6 +19,10 @@ def add_url(original_url: str, short_code: str):
         {
             "short_code": short_code,
             "original_url": original_url,
+            "expires_at": (
+                datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(days=validity_days)
+            ).isoformat(),
         }
     ).execute()
 
@@ -28,6 +33,11 @@ def delete_url(short_code: str):
         short_code: The 6 character short code of the desired database entry.
     """
     supabase.table("urls").delete().eq("short_code", short_code).execute()
+
+
+def delete_expired_urls():
+    """Deletes all database entries that are past their expiration date."""
+    supabase.table("urls").delete().lt("expires_at", datetime.datetime.now()).execute()
 
 
 def get_data(short_code: str) -> dict | None:

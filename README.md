@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ```
 SUPABASE_KEY = <your supabase api key>
 SUPABASE_URL = <your supabase api url>
-HOST_URL = <link to your render webservice | localhost:5000 for local testing>
+HOST_URL = <link to your render webservice | http://127.0.0.1:5000 for local testing>
 ```
 4. Run the app locally:
 ```bash
