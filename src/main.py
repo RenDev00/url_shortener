@@ -20,6 +20,7 @@ def keep_awake():
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=keep_awake, trigger="interval", minutes=1)
+scheduler.add_job(func=db_connector.delete_expired_urls, trigger="interval", hours=1)
 scheduler.start()
 
 
