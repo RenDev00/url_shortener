@@ -37,9 +37,23 @@ def get_short_code() -> str:
 def index():
     if request.method == "POST":
         original_url = request.form["original-url"]
+        validity_period_str = request.form["validity-period"]
+
+        match (validity_period_str):
+            case "1 D":
+                validity_days = 1
+            case "10 D":
+                validity_days = 10
+            case "1 M":
+                validity_days = 30
+            case "6 M":
+                validity_days = 182
+            case "12 M":
+                validity_days = 365
+            case _:
+                validity_days = 1
+
         short_code = get_short_code()
-        # TODO update frontend to support entering a validity period
-        validity_days = 30
         db_connector.add_url(original_url, short_code, validity_days)
         shortened_url = f"{request.host_url}{short_code}"
         return render_template("index.html", shortened_url=shortened_url)
